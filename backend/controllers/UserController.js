@@ -1,15 +1,26 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
+
+//import helpers
 const verifyFields = require("../helpers/verifyFields");
+const verifyEmailExists = require("../helpers/verifyEmailExists");
 
 module.exports = class UserControler {
   static async register(req, res) {
     const { name, email, password, confirmPassword } = req.body;
 
-    const fields = verifyFields(req.body);
+    function sendErrorResponse(res, error) {
+      return res.status(400).json({ isError: true, message: error });
+    }
 
+    const fields = verifyFields(req.body);
     if (fields) {
-      return res.status(400).json(fields);
+      return sendErrorResponse(res, fields.message);
+    }
+
+    const checkEmail = await verifyEmailExists(email);
+    if (checkEmail) {
+      return sendErrorResponse(res, checkEmail.message);
     }
 
     // crypt de senha
@@ -26,7 +37,7 @@ module.exports = class UserControler {
 
       res
         .status(200)
-        .json({ isError: false, message: "Resgistro realizado com sucesso!" });
+        .json({ isError: false, message: "Registro realizado com sucesso!" });
     } catch (error) {
       res.status(500).json({
         isError: true,
