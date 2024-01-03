@@ -1,4 +1,5 @@
 const User = require("../models/UserModel");
+const bcrypt = require("bcrypt");
 const verifyFields = require("../helpers/verifyFields");
 
 module.exports = class UserControler {
@@ -11,11 +12,15 @@ module.exports = class UserControler {
       return res.status(400).json(fields);
     }
 
+    // crypt de senha
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
+
     try {
       const user = {
         name,
         email,
-        password,
+        password: passwordHash,
       };
       const createdUser = await User.create(user);
 
