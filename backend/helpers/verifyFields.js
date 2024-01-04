@@ -15,6 +15,4 @@ module.exports = function verifyFields({ ...arg }) {
   }
 
   return null;
-}
-
-
+};

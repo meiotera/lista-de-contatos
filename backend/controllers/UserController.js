@@ -25,7 +25,7 @@ module.exports = class UserControler {
 
     // crypt de senha
     const salt = await bcrypt.genSalt(10);
-    const passwordHash = await bcrypt.hash(password, salt);
+    const passwordHash = bcrypt.hashSync(password, salt);
 
     try {
       const user = {
@@ -45,6 +45,20 @@ module.exports = class UserControler {
       });
 
       console.log(error);
+    }
+  }
+
+  static async login(req, res) {
+    const { email, password } = req.body;
+    const login = true;
+
+    function sendErrorResponse(res, error, isError) {
+      return res.status(400).json({ isError: isError, message: error });
+    }
+
+    const checkEmail = await verifyEmailExists(email, login, password);
+    if (checkEmail) {
+      return sendErrorResponse(res, checkEmail.message, checkEmail.isError);
     }
   }
 };
