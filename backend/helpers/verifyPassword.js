@@ -8,18 +8,13 @@ module.exports = async function verifyPassword(email, password) {
 
     if (!checkPassword) {
       return {
-        isError: true,
         message: "Senha inválida!",
-      };
-    } else {
-      return {
-        isError: false,
-        message: "Bem vindo a sua lista!",
       };
     }
   } catch (error) {
     return {
       isError: error,
+      error: error,
       message: "Um erro aconteceu, aguarde ou tente mais tarde!",
     };
   }

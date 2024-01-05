@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 //import helpers
 const verifyFields = require("../helpers/verifyFields");
 const verifyEmailExists = require("../helpers/verifyEmailExists");
+const verifyPassword = require("../helpers/verifyPassword");
 
 module.exports = class UserControler {
   static async register(req, res) {
@@ -43,8 +44,6 @@ module.exports = class UserControler {
         isError: true,
         message: "Erro durante o registro, tente novamente mais tarde.",
       });
-
-      console.log(error);
     }
   }
 
@@ -52,13 +51,30 @@ module.exports = class UserControler {
     const { email, password } = req.body;
     const login = true;
 
-    function sendErrorResponse(res, error, isError) {
-      return res.status(400).json({ isError: isError, message: error });
+    function sendErrorResponse(res, error) {
+      return res.status(400).json({ isError: true, message: error });
     }
 
-    const checkEmail = await verifyEmailExists(email, login, password);
-    if (checkEmail) {
-      return sendErrorResponse(res, checkEmail.message, checkEmail.isError);
+    try {
+      const checkEmail = await verifyEmailExists(email, login, password);
+      if (checkEmail) {
+        return sendErrorResponse(res, checkEmail.message);
+      }
+
+      const checkPassword = await verifyPassword(email, password);
+      if (checkPassword) {
+        return sendErrorResponse(res, checkPassword.message);
+      }
+
+      res
+        .status(200)
+        .json({ isError: false, message: "Login efetuado com sucesso!" });
+    } catch (error) {
+      res.status(500).json({
+        isError: true,
+        error: error,
+        message: "Erro durante o login, tente novamente mais tarde.",
+      });
     }
   }
 };

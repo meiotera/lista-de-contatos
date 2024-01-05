@@ -5,13 +5,14 @@ module.exports = function verifyFields({ ...arg }) {
 
   if (camposVazios.length > 0) {
     return {
-      isError: true,
       message: `Campo obrigatório vazio: ${camposVazios.join(", ")}`,
     };
   }
 
   if (password !== confirmPassword) {
-    return { isError: true, message: `Senhas não conferem` };
+    return {
+      message: `Senhas não conferem`,
+    };
   }
 
   return null;

@@ -14,7 +14,6 @@ module.exports = async function verifyEmailExists(
     case false:
       if (exists) {
         return {
-          isError: true,
           message: "Email já cadastrado, tente outro email",
         };
       }
@@ -23,14 +22,15 @@ module.exports = async function verifyEmailExists(
     case true:
       if (!exists) {
         return {
-          isError: true,
           message: "Email não encontrado",
         };
       }
 
-      if (exists) {
-        return verifyPassword(email, password);
-      }
-      break;
+    // if (exists) {
+    //   return verifyPassword(email, password);
+    // }
+    // break;
   }
+  console.log(exists);
+  return;
 };
