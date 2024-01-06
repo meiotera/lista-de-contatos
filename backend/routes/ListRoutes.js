@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const ListController = require("../controllers/ListController");
+const verifyTokenUser = require("../helpers/verifyTokenUser");
 
-router.get("/", (req, res) => {
-  res.send("sua lista");
-});
+router.post("/criarcontato", verifyTokenUser, ListController.createContact);
+// router.post("/edit/:id", verifyTokenUser, ListController.editContact);
 
 module.exports = router;

@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const verifyFields = require("../helpers/verifyFields");
 const verifyEmailExists = require("../helpers/verifyEmailExists");
 const verifyPassword = require("../helpers/verifyPassword");
+const createToken = require("../helpers/createToken");
 
 module.exports = class UserControler {
   static async register(req, res) {
@@ -49,6 +50,7 @@ module.exports = class UserControler {
 
   static async login(req, res) {
     const { email, password } = req.body;
+    const user = await User.findOne({ where: { email: email } });
     const login = true;
 
     function sendErrorResponse(res, error) {
@@ -66,9 +68,11 @@ module.exports = class UserControler {
         return sendErrorResponse(res, checkPassword.message);
       }
 
-      res
-        .status(200)
-        .json({ isError: false, message: "Login efetuado com sucesso!" });
+      await createToken(user, req, res);
+
+      // res
+      //   .status(200)
+      //   .json({ isError: false, message: "Login efetuado com sucesso!" });
     } catch (error) {
       res.status(500).json({
         isError: true,

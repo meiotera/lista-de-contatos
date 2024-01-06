@@ -2,8 +2,8 @@ const User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
 
 module.exports = async function verifyPassword(email, password) {
+  const user = await User.findOne({ where: { email: email } });
   try {
-    const user = await User.findOne({ where: { email: email } });
     const checkPassword = bcrypt.compareSync(password, user.password);
 
     if (!checkPassword) {
@@ -18,4 +18,5 @@ module.exports = async function verifyPassword(email, password) {
       message: "Um erro aconteceu, aguarde ou tente mais tarde!",
     };
   }
+  return;
 };

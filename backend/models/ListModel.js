@@ -11,7 +11,7 @@ const Contact = db.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    contactName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
