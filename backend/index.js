@@ -23,7 +23,7 @@ const UserRoutes = require("./routes/UserRoutes");
 const ListRoutes = require("./routes/ListRoutes");
 
 app.use("/", UserRoutes);
-app.use("/lists", ListRoutes);
+app.use("/", ListRoutes);
 
 // const server = app.listen(5000, (err) => {
 //   if (err) {

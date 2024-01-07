@@ -1,7 +1,5 @@
-const url = "http://localhost:5000";
+import axios from "axios";
 
-const api = fetch(url).then((response) => {
-  return response.json();
+export default axios.create({
+  baseURL: "http://localhost:5000",
 });
-
-export default api;
