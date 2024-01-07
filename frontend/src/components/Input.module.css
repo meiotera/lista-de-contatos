@@ -1,0 +1,15 @@
+.container_form {
+    width: max-content;
+    margin: 0 auto;
+}
+
+.container_form label {
+    text-align: start;
+    display: block;
+}
+
+.container_form input {
+    padding: .5em;
+    font-size: 1.2em;
+    margin-bottom: .8em;
+}
