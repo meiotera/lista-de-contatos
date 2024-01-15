@@ -1,0 +1,13 @@
+.rodape {
+    text-align: center;
+    border-top: 5px solid rgb(126, 30, 30);
+    padding: 1em;
+}
+
+.rodape .rodape_logos div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: .5em;
+    gap: 2em;
+}

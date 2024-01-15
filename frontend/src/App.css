@@ -2,10 +2,32 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
   height: 100vh;
-  justify-content: space-between;
 }
 
+.principal {
+  height: 70vh;
+}
+
+.section_form {
+  padding: 2em;
+  text-align: center;
+}
+
+.section_form .btn_input {
+  background-color: brown;
+  padding: .4em .7em;
+  font-family: inherit;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: .4em;
+  outline: none;
+  border: none;
+  transition: .2s;
+  width: 14em;
+  margin-top: 1em;
+}
+
+.section_form .btn_input:hover {
+  background-color: rgba(167, 53, 53, 0.788)
+}

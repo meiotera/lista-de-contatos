@@ -5,9 +5,13 @@ const Context = createContext();
 
 // temos que adicionar esse contexto na noss aaplicação
 function UserProvider({ children }) {
-  const { login } = useAuthentic();
+  const { authenticated, login } = useAuthentic();
 
-  return <Context.Provider value={{ login }}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={{ authenticated, login }}>
+      {children}
+    </Context.Provider>
+  );
 }
 
 export { Context, UserProvider };

@@ -17,7 +17,7 @@ export default function Login(props) {
     login(user);
   }
   return (
-    <section>
+    <section className="section_form">
       <form onSubmit={handleSubmit}>
         <Input
           type={"text"}
@@ -33,7 +33,7 @@ export default function Login(props) {
           placeholder={"Digite sua senha"}
           handleOnChange={handleChange}
         />
-        <input type="submit" value="Entrar" />
+        <input className="btn_input" type="submit" value="Entrar" />
       </form>
     </section>
   );
