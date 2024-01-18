@@ -6,7 +6,7 @@ import useFlashMessage from "./useFlashMessage";
 
 export default function useAuthentic(user) {
   const [authenticated, setAuthenticated] = useState(false);
-  const {setFlashMessage} = useFlashMessage()
+  const { setFlashMessage } = useFlashMessage();
 
   const navegate = useNavigate();
 
@@ -30,21 +30,36 @@ export default function useAuthentic(user) {
 
       await authUser(data);
     } catch (error) {
-      // const err = error.response.data;
-      // console.log(err)
-
       message = {
         isError: error.response.data.isError,
         message: error.response.data.message,
       };
-      // console.log(error.response.data);
+
       error.response.data;
     }
-
-    console.log(message.message);
 
     setFlashMessage(message);
   }
 
-  return { authenticated, login };
+  async function register(user) {
+    let message = {
+      isError: false,
+      message: "Registro realizado com sucesso!",
+    };
+
+    try {
+      const data = await api.post("/registro", user).then((response) => {
+        return response.data;
+      });
+
+      navegate("/login");
+    } catch (error) {
+      console.error(error.response.statusText);
+      setFlashMessage(error.response.data);
+      return;
+    }
+    setFlashMessage(message);
+  }
+
+  return { authenticated, login, register };
 }

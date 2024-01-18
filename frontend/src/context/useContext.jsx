@@ -5,10 +5,10 @@ const Context = createContext();
 
 // temos que adicionar esse contexto na noss aaplicação
 function UserProvider({ children }) {
-  const { authenticated, login } = useAuthentic();
+  const { authenticated, login, register } = useAuthentic();
 
   return (
-    <Context.Provider value={{ authenticated, login }}>
+    <Context.Provider value={{ authenticated, login, register }}>
       {children}
     </Context.Provider>
   );
